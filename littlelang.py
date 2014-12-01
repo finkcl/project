@@ -1,5 +1,5 @@
 """
-Basic languague by fin
+Basic languague by finkcl
 
 """
 
@@ -72,7 +72,7 @@ def parse(program):
     for n in tokens:
         os.write(1, str(n) + "\n")
     int_tokens = []
-    for n in range(0, len(tokens)):
+    for n in tokens:
         if n == "PRINT":
             int_tokens.append(1)
         elif n == "ADD":
