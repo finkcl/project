@@ -5,13 +5,16 @@ Basic languague by finkcl
 
 import os
 import sys
+from pypy.rlib.jit import JitDriver
+jitdriver = JitDriver(greens=['pc', 'program', 'code'],
+        reds=['stack'])
 
 def mainloop(program):
     pc = 0
     stack = []
-    
-    while pc < len(program):
 
+    while pc < len(program):
+	jitdriver.jit_merge_point(pc=pc, code=code, program=program, stack=stack)
         code = program[pc]
 
         if code == 1:
