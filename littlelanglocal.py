@@ -5,8 +5,8 @@ Basic languague by finkcl
 
 import os
 import sys
-from rpython.rlib.jit import JitDriver
-jitdriver = JitDriver(greens=['pc', 'code', 'program'],
+from pypy.rlib.jit import JitDriver
+jitdriver = JitDriver(greens=['pc', 'program', 'code'],
         reds=['stack'])
 
 def mainloop(program):
