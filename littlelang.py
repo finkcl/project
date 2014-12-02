@@ -5,7 +5,7 @@ Basic languague by finkcl
 
 import os
 import sys
-from pypy.rlib.jit import JitDriver
+from rpython.rlib.jit import JitDriver
 jitdriver = JitDriver(greens=['pc', 'program', 'code'],
         reds=['stack'])
 
@@ -14,9 +14,8 @@ def mainloop(program):
     stack = []
 
     while pc < len(program):
-	jitdriver.jit_merge_point(pc=pc, code=code, program=program, stack=stack)
         code = program[pc]
-
+        jitdriver.jit_merge_point(pc=pc, code=code, program=program, stack=stack)
         if code == 1:
             if len(stack) > 0:
                 var = stack.pop()
