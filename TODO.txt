@@ -1,0 +1,9 @@
+jit log using following command:
+PYPYLOG=jit-log-opt,jit-summary:/tmp/log ./littlelang-c p1.fin 
+
+comparison with non jit version.
+
+loops with 1000s of iterations
+
+use multitime to measure.
+
