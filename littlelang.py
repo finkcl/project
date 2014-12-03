@@ -16,6 +16,7 @@ def mainloop(program):
     while pc < len(program):
         code = program[pc]
         jitdriver.jit_merge_point(pc=pc, code=code, program=program, stack=stack)
+        # PRINT
         if code == 1:
             if len(stack) > 0:
                 var = stack.pop()
@@ -23,14 +24,15 @@ def mainloop(program):
             else: os.write(1, "Error: nothing on stack to print\n")
             pc = pc + 2
 
+        # ADD
         elif code == 2:
-            if len(stack) > 1:
+            if len(stack) > 0:
                 a = stack.pop()
-                b = stack.pop()
-                stack.append(a+b)
+                stack.append(a + program[pc+1])
             else: os.write(1, "Error: not enough variables to add\n")
             pc = pc + 2
 
+        # SUB
         elif code == 3:
             if len(stack) > 0:
                 a = stack.pop()
@@ -38,22 +40,27 @@ def mainloop(program):
             else: os.write(1, "Error: not enough variables to subtract\n")
             pc = pc + 2
 
+        # INT
         elif code == 4:
             var = program[pc+1]
             stack.append(var)
             pc = pc + 2
 
+        # JUMP
         elif code == 5:
             var = program[pc+1]
             if var < len(program)/2:
                 pc = var*2
             else: os.write(1, "Error: wrong syntax for JUMP\n")
 
+        # JNZERO
         elif code == 6:
-            var = program[pc+1]
-            if var < len(program):
-                if stack[len(stack)-1] != 0:
-                	pc = var*2
+            jumpTo = program[pc+1]
+            if jumpTo < len(program):
+                topOfStack = stack[len(stack)-1]
+                if topOfStack != 0:
+                	pc = jumpTo * 2
+                else: pc = pc + 2
             else: os.write(1, "Error: wrong syntax for JNZERO\n")
 
 
@@ -66,9 +73,11 @@ def parse(program):
     for n in instructions:
         if " " in n:
             tokens.extend(n.split(" "))
+        elif n == "":
+            continue
         else:
             tokens.append(n)
-            """ Dummy value for instructions with no operand """
+            # Dummy value for instructions with no operand
             tokens.append("0")
     os.write(1, "Tokens as text: \n")
     for n in tokens:
@@ -88,6 +97,7 @@ def parse(program):
         elif n == "JNZERO":
             int_tokens.append(6)
         else: int_tokens.append(int(n))
+
     os.write(1, "Tokens as ints: \n")
     for n in int_tokens:
         os.write(1, str(n) + "\n")

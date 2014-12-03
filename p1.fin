@@ -1,6 +1,8 @@
 INT 1
 INT 2
-INT 3
 PRINT
-ADD
+SUB 3
 PRINT
+
+
+
