@@ -1,0 +1,27 @@
+===> multitime results
+1: pypy littlelang.py test.fin
+            Mean        Std.Dev.    Min         Median      Max
+real        14.256      0.000       14.256      14.256      14.256      
+user        14.190      0.000       14.190      14.190      14.190      
+sys         0.040       0.000       0.040       0.040       0.040  
+
+===> multitime results
+1: pypy littlelang.py test.fin
+            Mean        Std.Dev.    Min         Median      Max
+real        14.059      0.000       14.059      14.059      14.059      
+user        13.980      0.000       13.980      13.980      13.980      
+sys         0.060       0.000       0.060       0.060       0.060   
+
+===> multitime results
+1: ./littlelang-c test.fin
+            Mean        Std.Dev.    Min         Median      Max
+real        0.130       0.000       0.130       0.130       0.130       
+user        0.110       0.000       0.110       0.110       0.110       
+sys         0.000       0.000       0.000       0.000       0.000 
+
+===> multitime results
+1: ./littlelang-c test.fin
+            Mean        Std.Dev.    Min         Median      Max
+real        0.125       0.000       0.125       0.125       0.125       
+user        0.120       0.000       0.120       0.120       0.120       
+sys         0.000       0.000       0.000       0.000       0.000   
