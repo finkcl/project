@@ -15,12 +15,14 @@ def mainloop(program):
 
     while pc < len(program):
         code = program[pc]
-        jitdriver.jit_merge_point(pc=pc, code=code, program=program, stack=stack)
+        jitdriver.jit_merge_point(pc=pc, code=code, program=program,
+            stack=stack)
         # PRINT
         if code == 1:
             if len(stack) > 0:
                 var = stack.pop()
                 os.write(1, str(var) + "\n")
+                stack.append(var)
             else: os.write(1, "Error: nothing on stack to print\n")
             pc = pc + 2
 
@@ -66,9 +68,9 @@ def mainloop(program):
 
 def parse(program):
     instructions = program.split("\n")
-    os.write(1, "Instructions: \n")
-    for n in instructions:
-        os.write(1, n + "\n")
+    # os.write(1, "Instructions: \n")
+    # for n in instructions:
+        # os.write(1, n + "\n")
     tokens = []
     for n in instructions:
         if " " in n:
@@ -79,9 +81,9 @@ def parse(program):
             tokens.append(n)
             # Dummy value for instructions with no operand
             tokens.append("0")
-    os.write(1, "Tokens as text: \n")
-    for n in tokens:
-        os.write(1, str(n) + "\n")
+    # os.write(1, "Tokens as text: \n")
+    # for n in tokens:
+        # os.write(1, str(n) + "\n")
     int_tokens = []
     for n in tokens:
         if n == "PRINT":
@@ -98,9 +100,9 @@ def parse(program):
             int_tokens.append(6)
         else: int_tokens.append(int(n))
 
-    os.write(1, "Tokens as ints: \n")
-    for n in int_tokens:
-        os.write(1, str(n) + "\n")
+    # os.write(1, "Tokens as ints: \n")
+    # for n in int_tokens:
+        # os.write(1, str(n) + "\n")
     return int_tokens
 
 def run(fp):
