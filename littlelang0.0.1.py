@@ -9,6 +9,19 @@ from rpython.rlib.jit import JitDriver
 jitdriver = JitDriver(greens=['pc', 'code', 'program'],
         reds=['stack'])
 
+class binaryOp:
+    "Binary Operator"
+    def __init__(self, leftHandSide, rightHandSide):
+        self.leftHandSide = leftHandSide
+        self.rightHandSide = rightHandSide
+    
+class value:
+    "Values like integer"
+    def __init__(self, valueType, value):
+        self.valueType = value
+        self.valueType = value
+
+
 def mainloop(program):
     pc = 0
     stack = []
