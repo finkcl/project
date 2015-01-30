@@ -4,25 +4,73 @@ Basic languague by finkcl
 """
 
 import os
+import re
 import sys
 from rpython.rlib.jit import JitDriver
 jitdriver = JitDriver(greens=['pc', 'code', 'program'],
         reds=['stack'])
 
-class binaryOp:
+class Terminal:
+    def __init__(self, parent):
+        self.parent = parent
+    
+class NonTerminal:
+    def __init__(self, parent, children):
+        self.parent = parent
+        self.children = childern
+
+class BinaryOp (NonTerminal):
     "Binary Operator"
     def __init__(self, leftHandSide, rightHandSide):
         self.leftHandSide = leftHandSide
         self.rightHandSide = rightHandSide
     
-class value:
-    "Values like integer"
+class Value (Terminal):
+    "Values like integers"
     def __init__(self, valueType, value):
         self.valueType = value
         self.valueType = value
 
+def parse(program):
+    # instructions = program.split("\n")
+    # os.write(1, "Instructions: \n")
+    # for n in instructions:
+        # os.write(1, n + "\n")
+    tokens = []
+    for n in instructions:
+        if n == re.match([0-9]):
+            tokens.append()
+        elif n == "":
+            continue
+        else:
+            tokens.append(n)
+            # Dummy value for instructions with no operand
+            tokens.append("0")
+    # os.write(1, "Tokens as text: \n")
+    # for n in tokens:
+        # os.write(1, str(n) + "\n")
+    int_tokens = []
+    for n in tokens:
+        if n == "PRINT":
+            int_tokens.append(1)
+        elif n == "ADD":
+            int_tokens.append(2)
+        elif n == "SUB":
+            int_tokens.append(3)
+        elif n == "INT":
+            int_tokens.append(4)
+        elif n == "JUMP":
+            int_tokens.append(5)
+        elif n == "JNZERO":
+            int_tokens.append(6)
+        else: int_tokens.append(int(n))
 
-def mainloop(program):
+    # os.write(1, "Tokens as ints: \n")
+    # for n in int_tokens:
+        # os.write(1, str(n) + "\n")
+    return int_tokens
+
+def mainLoop(program):
     pc = 0
     stack = []
 
@@ -78,46 +126,6 @@ def mainloop(program):
                 else: pc = pc + 2
             else: os.write(1, "Error: wrong syntax for JNZERO\n")
 
-
-def parse(program):
-    instructions = program.split("\n")
-    # os.write(1, "Instructions: \n")
-    # for n in instructions:
-        # os.write(1, n + "\n")
-    tokens = []
-    for n in instructions:
-        if " " in n:
-            tokens.extend(n.split(" "))
-        elif n == "":
-            continue
-        else:
-            tokens.append(n)
-            # Dummy value for instructions with no operand
-            tokens.append("0")
-    # os.write(1, "Tokens as text: \n")
-    # for n in tokens:
-        # os.write(1, str(n) + "\n")
-    int_tokens = []
-    for n in tokens:
-        if n == "PRINT":
-            int_tokens.append(1)
-        elif n == "ADD":
-            int_tokens.append(2)
-        elif n == "SUB":
-            int_tokens.append(3)
-        elif n == "INT":
-            int_tokens.append(4)
-        elif n == "JUMP":
-            int_tokens.append(5)
-        elif n == "JNZERO":
-            int_tokens.append(6)
-        else: int_tokens.append(int(n))
-
-    # os.write(1, "Tokens as ints: \n")
-    # for n in int_tokens:
-        # os.write(1, str(n) + "\n")
-    return int_tokens
-
 def run(fp):
     # Read file, make it a string
     program_contents = ""
@@ -130,7 +138,7 @@ def run(fp):
     # Call parser to generate intermediate representation (IR)
     intermediateRep = parse(program_contents)
     # Interperet IR
-    mainloop(intermediateRep)
+    mainLoop(intermediateRep)
 
 def entry_point(argv):
     try:
